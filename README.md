@@ -19,6 +19,8 @@ Use currently up to 1 bumper:
 - Press "Mark Bumper". 
 - Middle click on left and right end of the bumper to mark it. 
 
+(Optional: Drag the circle in bumper mode to adjust the range by which you're willing to miss the shot. A larger range means a higher possibility that the target area is reachable from your current player position.)
+
 _Notes_
-* Calculate wind. Intended for use in single player games only.
+* Cannot calculate wind. Intended for use in single player games only. 
 * Bumper arc may varies from the ingame one, but the projectile should land pretty close nonetheless. 
