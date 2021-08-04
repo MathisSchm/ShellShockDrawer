@@ -1,6 +1,6 @@
 # ShellShockDrawer
 Draws the trajectory of standard projectiles for the game ShellShock Live on top of the game. 
-![Here is how the application looks.](formWindowPreview.png)
+![Here is how the application looks.](https://github.com/MathisSchm/ShellShockDrawer/blob/master/ShellShockProjectileMotion/formWindowPreview.png)
 
 How to use: 
 - Input your angle or set it to whatever you like between 1 and 89. 
