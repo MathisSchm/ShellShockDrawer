@@ -2,6 +2,8 @@
 ## Download
 https://github.com/MathisSchm/ShellShockDrawer/releases/tag/1.0
 
+!! Important: Run the executable in admin mode. 
+
 ## About 
 Draws the trajectory of standard projectiles for the game ShellShock Live on top of the game. 
 
