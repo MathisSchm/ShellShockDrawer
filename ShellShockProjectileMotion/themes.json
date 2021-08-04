@@ -1,0 +1,25 @@
+{
+  "white": {
+    "Label": "",
+    "Panel": "#e8e8e8",
+    "Button": "#cccccc",
+    "Form": "#ffffff",
+    "Text": "000000",
+    "TextBox": "#ffffff",
+    "CheckBox": "",
+    "Border": "#4033d4"
+  },
+
+  "black": {
+    "Label": "",
+    "Panel": "#141414",
+    "Button": "#2d2e2d",
+    "Form": "#1c1c1b",
+    "Text": "#fcf7f7",
+    "TextBox": "#000000",
+    "CheckBox": "#ffffff",
+    "Border": "#edaf42"
+  }
+  
+
+}

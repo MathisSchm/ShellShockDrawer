@@ -1,0 +1,21 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ShellShockProjectileMotion.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ScreenWidth" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1920</Value>
+    </Setting>
+    <Setting Name="ScreenHeight" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1080</Value>
+    </Setting>
+    <Setting Name="KeepOpen" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ShowTracer" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ShowLinearTracer" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
