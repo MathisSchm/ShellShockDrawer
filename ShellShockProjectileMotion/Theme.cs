@@ -99,7 +99,7 @@ namespace Themes
                                         b.FlatAppearance.BorderColor = Color.Violet;
                                         break;
                                     default:
-                                        b.FlatAppearance.BorderColor = ColorTranslator.FromHtml(themeCollection.white.Border);
+                                        b.FlatAppearance.BorderColor = ColorTranslator.FromHtml(themeCollection.black.Border);
                                         break;
                                 }
                                 break;

@@ -7,7 +7,7 @@
     "Text": "000000",
     "TextBox": "#ffffff",
     "CheckBox": "",
-    "Border": "#4033d4"
+    "Border": "#4281f5"
   },
 
   "black": {
@@ -18,7 +18,7 @@
     "Text": "#fcf7f7",
     "TextBox": "#000000",
     "CheckBox": "#ffffff",
-    "Border": "#edaf42"
+    "Border": "#f5b642"
   }
   
 
