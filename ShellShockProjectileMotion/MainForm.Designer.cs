@@ -44,9 +44,9 @@ namespace ShellShockProjectileMotion
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.bumperLabel = new System.Windows.Forms.Label();
             this.bumperTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.bumperLabel2 = new System.Windows.Forms.Label();
             this.setBumperButton = new System.Windows.Forms.Button();
             this.bumperPanel = new System.Windows.Forms.Panel();
-            this.bumperLabel2 = new System.Windows.Forms.Label();
             this.redrawAndClearTable = new ShellShockProjectileMotion.CustomTableLayoutPanel();
             this.redrawButton = new System.Windows.Forms.Button();
             this.clearScreenButton = new System.Windows.Forms.Button();
@@ -172,6 +172,17 @@ namespace ShellShockProjectileMotion
             this.bumperTableLayoutPanel.Size = new System.Drawing.Size(333, 191);
             this.bumperTableLayoutPanel.TabIndex = 32;
             // 
+            // bumperLabel2
+            // 
+            this.bumperLabel2.AutoSize = true;
+            this.bumperLabel2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.bumperLabel2.Location = new System.Drawing.Point(13, 72);
+            this.bumperLabel2.Name = "bumperLabel2";
+            this.bumperLabel2.Size = new System.Drawing.Size(98, 119);
+            this.bumperLabel2.TabIndex = 32;
+            this.bumperLabel2.Text = "Accepted Hit Circle";
+            this.bumperLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // setBumperButton
             // 
             this.bumperTableLayoutPanel.SetColumnSpan(this.setBumperButton, 3);
@@ -194,17 +205,6 @@ namespace ShellShockProjectileMotion
             this.bumperPanel.Size = new System.Drawing.Size(106, 113);
             this.bumperPanel.TabIndex = 30;
             this.bumperPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.bumperPanel_Paint);
-            // 
-            // bumperLabel2
-            // 
-            this.bumperLabel2.AutoSize = true;
-            this.bumperLabel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.bumperLabel2.Location = new System.Drawing.Point(13, 72);
-            this.bumperLabel2.Name = "bumperLabel2";
-            this.bumperLabel2.Size = new System.Drawing.Size(98, 119);
-            this.bumperLabel2.TabIndex = 32;
-            this.bumperLabel2.Text = "Accepted Hit Circle";
-            this.bumperLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // redrawAndClearTable
             // 

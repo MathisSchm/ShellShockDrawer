@@ -79,28 +79,6 @@ namespace ShellShockProjectileMotion
             loopTimer.AutoReset = true;
         }
 
-        private void bit()
-        {
-            Bitmap myBitmap = new Bitmap(Properties.Resources.Image1);
-
-            const float limit = 0.5f;
-            for (int i = 0; i < myBitmap.Width; i++)
-            {
-                for (int j = 0; j < myBitmap.Height; j++)
-                {
-                    Color c = myBitmap.GetPixel(i, j);
-                    if (c.GetBrightness() > limit)
-                    {
-                        myBitmap.SetPixel(i, j, Color.Red);
-                    }
-                }
-            }
-            var path = System.IO.Path.GetDirectoryName(
-            System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
-            path = path.Substring(6);
-            myBitmap.Save(Path.Combine(path, "imageeee.png"), System.Drawing.Imaging.ImageFormat.Jpeg);
-        }
-
         private void MainForm_Load(object sender, EventArgs e)
         {
             this.TopMost = true;

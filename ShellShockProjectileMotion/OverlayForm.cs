@@ -18,9 +18,6 @@ namespace ShellShockProjectileMotion
             this.TopMost = true;
             this.ShowInTaskbar = false;
             this.Show();
-            this.DoubleBuffered = true;//Set this form
-            SetStyle(ControlStyles.UserPaint, true);
-            SetStyle(ControlStyles.DoubleBuffer, true); // Double buffering
         }
 
 
