@@ -96,23 +96,8 @@ namespace ShellShockProjectileMotion
         }
         private void MainForm_Closing(object sender, FormClosingEventArgs e)
         {
-            if (e.CloseReason == CloseReason.UserClosing)
-            {
-                DialogResult result = MessageBox.Show("Exit the application?", "Closing ShellShockProjectiles", MessageBoxButtons.YesNo);
-                if (result == DialogResult.Yes)
-                {
-                    Properties.Settings.Default.Save();
-                    System.Windows.Forms.Application.Exit();
-                }
-                else
-                {
-                    e.Cancel = true;
-                }
-            }
-            else
-            {
-                e.Cancel = true;
-            }
+            Properties.Settings.Default.Save();
+            System.Windows.Forms.Application.Exit();
         }
 
         private Point StartWaitingForClickFromOutside()
