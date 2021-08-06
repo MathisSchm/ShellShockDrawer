@@ -1,6 +1,6 @@
 # ShellShockDrawer
 ## Download
-https://github.com/MathisSchm/ShellShockDrawer/releases/tag/1.0
+https://github.com/MathisSchm/ShellShockDrawer/releases/tag/0.91
 
 !! Important: Run the executable in admin mode. 
 
