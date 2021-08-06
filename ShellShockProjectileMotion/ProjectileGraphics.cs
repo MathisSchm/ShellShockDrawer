@@ -5,28 +5,19 @@ using System.Windows.Forms;
 
 namespace ShellShockProjectileMotion
 {
-    internal class ProjectileGraphics
+    internal class ProjectileTrajectory
     {
         private readonly MainForm FormMain;
-        private readonly OverlayForm Overlay;
         public Color CircleColorOrigin = ColorTranslator.FromHtml("#73ed6d");
         public Color CircleColorTarget = Color.Red;
         public Color TracerColor = ColorTranslator.FromHtml("#73ed6d");
-        public PaintEventArgs PaintArgs;
 
-        public ProjectileGraphics(MainForm sender, OverlayForm overlay)
+        public ProjectileTrajectory(MainForm sender, OverlayForm overlay)
         {
             FormMain = sender;
-            Overlay = overlay;
-            PaintArgs = GetNewPaintArg();
         }
 
-        public PaintEventArgs GetNewPaintArg()
-        {
-            Rectangle rect = Overlay.Bounds;
-            return new PaintEventArgs(Overlay.GetGraphics(), rect);
-        }
-
+ 
         public Point[] SetParabolaPoints(Point Origin, Point Target, int initialAngle, int yAcceleration, int PointNumber = 25)
         {
             Point[] PointArray = new Point[PointNumber];
@@ -83,30 +74,6 @@ namespace ShellShockProjectileMotion
             }
 
             return PointArray;
-        }
-
-        public void DrawCurve(Color col, Point[] PointArray)
-        {
-            Pen pn = new Pen(col, 3)
-            {
-                DashStyle = System.Drawing.Drawing2D.DashStyle.Dot
-            };
-            PaintArgs.Graphics.DrawCurve(pn, PointArray);
-            PaintArgs.Dispose();
-        }
-
-        public void DrawCircleAtPositions(Point pos, Pen col, int scale = 50)
-        {
-
-            PaintArgs.Graphics.DrawEllipse(col, pos.X - scale / 2, pos.Y - scale / 2, scale, scale);
-            PaintArgs.Dispose();
-        }
-
-        public void DrawLineAtPoint(Point p1, Point p2, Pen pen)
-        {
-            pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dot;
-            PaintArgs.Graphics.DrawLine(pen, p1, p2);
-            PaintArgs.Dispose();
         }
 
     }

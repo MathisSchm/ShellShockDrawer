@@ -13,6 +13,9 @@ using Themes;
 
 namespace ShellShockProjectileMotion
 {
+
+
+
     public partial class MainForm : Form
     {
         // Settings. 
@@ -29,13 +32,12 @@ namespace ShellShockProjectileMotion
         private int _bumpedTargetScale = 50;
         private const int Acceleration = -380;
         private readonly Theme Theme = new Theme();
-        private readonly ProjectileGraphics ProjectileGfx;
         private readonly OverlayForm bumperOverlay;
-        private readonly ProjectileGraphics bumperGraphics;
         public OverlayForm Overlay;
         public int Angle => GetInitialAngle();
         public int power;
         private static System.Timers.Timer loopTimer;
+        ProjectileTrajectory ProjectileGfx;
 
         [STAThread]
         public static void Main()
@@ -49,10 +51,9 @@ namespace ShellShockProjectileMotion
         {
             InitializeComponent();
             Overlay = new OverlayForm();
-            ProjectileGfx = new ProjectileGraphics(this, Overlay);
             Theme = new Theme();
+            ProjectileGfx = new ProjectileTrajectory(this, Overlay);
             bumperOverlay = new OverlayForm();
-            bumperGraphics = new ProjectileGraphics(this, bumperOverlay);
             foreach (Control ctr in tableAngle.Controls)
             {
                 if (ctr is Button)
@@ -92,6 +93,7 @@ namespace ShellShockProjectileMotion
             showLinearCheck.Checked = _showLinearTracer;
             showTracerCheck.Checked = _showTracer;
             bumperTableLayoutPanel.Hide();
+            
 
         }
         private void MainForm_Closing(object sender, FormClosingEventArgs e)
@@ -214,6 +216,7 @@ namespace ShellShockProjectileMotion
         private void Button1_Click(object sender, EventArgs e)
         {
             Overlay.ClearGraphics();
+
             bumperOverlay.ClearGraphics();
             Overlay.Update();
             bumperOverlay.Update();
@@ -288,7 +291,8 @@ namespace ShellShockProjectileMotion
                         Thread.Sleep(100);
                     });
                 }
-                ProjectileGfx.DrawCircleAtPositions(TargetMousePos1, new Pen(ProjectileGfx.CircleColorOrigin, 3), 50);
+                Overlay.AddGeometry(new Circle(TargetMousePos1, new Pen(Color.LimeGreen, 3), 50));
+                Overlay.Refresh();
                 if (TargetMousePos2 == default)
                 {
                     await Task.Run(() =>
@@ -300,18 +304,20 @@ namespace ShellShockProjectileMotion
                 var parabolaPoints = ProjectileGfx.SetParabolaPoints(TargetMousePos1, TargetMousePos2, Angle, Acceleration, PointArrayLenght);
                 if (parabolaPoints != null && _showTracer && !_bumperMode)
                 {
-                    ProjectileGfx.DrawCurve(Color.Red, parabolaPoints);
+                    Overlay.AddGeometry(new Curve(parabolaPoints, new Pen(Color.Red, 3)));
                 }
                 else
                 {
                     targetCircleScale = _bumpedTargetScale;
                 }
-                ProjectileGfx.DrawCircleAtPositions(TargetMousePos2, new Pen(ProjectileGfx.CircleColorTarget, 3), targetCircleScale);
+                Overlay.AddGeometry(new Circle(TargetMousePos2, new Pen(ProjectileGfx.CircleColorTarget, 3), targetCircleScale));
+
                 if (_showLinearTracer && !_bumperMode)
                 {
-                    ProjectileGfx.DrawLineAtPoint(TargetMousePos1, TargetMousePos2, new Pen(ProjectileGfx.CircleColorTarget, 2));
+                    Overlay.AddGeometry(new Line(TargetMousePos1, TargetMousePos2, new Pen(ProjectileGfx.CircleColorTarget, 2)));
                 }
                 _anyButtonpressed = false;
+                Overlay.Refresh();
             }
             this.Show();
             this.Refresh();
@@ -340,15 +346,15 @@ namespace ShellShockProjectileMotion
 
         private bool CalculateBumper(Point BumperPoint1, Point BumperPoint2)
         {
-            bumperGraphics.DrawLineAtPoint(BumperMousePos1, BumperMousePos2, new Pen(Color.Pink, 2));
-            bumperGraphics.DrawCircleAtPositions(BumperMousePos2, new Pen(Color.MediumPurple, 3), 10);
+            bumperOverlay.AddGeometry(new Line(BumperMousePos1, BumperMousePos2, new Pen(Color.Pink, 2)));
+            bumperOverlay.AddGeometry(new Circle(BumperMousePos2, new Pen(Color.MediumPurple, 3), 10));
             List<Tuple<int, int>> anglePowerHits = new List<Tuple<int, int>>();
             List<Point[]> allPointArraysHits = new List<Point[]>();
 
             // For every angle, get hit angle and power. 
             for (int i = 1; i < 89; i++)
             {
-                var n = bumperGraphics.SetParabolaPoints(TargetMousePos1, BumperPoint1, i, Acceleration);
+                var n = ProjectileGfx.SetParabolaPoints(TargetMousePos1, BumperPoint1, i, Acceleration);
                 if (n != null)
                 {
                     Tuple<int, int> toAdd = new Tuple<int, int>(i, power);
@@ -417,11 +423,8 @@ namespace ShellShockProjectileMotion
                 }
                 if (hits)
                 {
-                    Overlay.Refresh();
-                    bumperGraphics.DrawCurve(Color.HotPink, p);
-                    bumperGraphics.DrawCurve(Color.HotPink, allPointArraysHits[i]);
-                    ProjectileGfx.DrawCircleAtPositions(TargetMousePos1, new Pen(ProjectileGfx.CircleColorOrigin, 3), 30);
-                    ProjectileGfx.DrawCircleAtPositions(TargetMousePos2, new Pen(ProjectileGfx.CircleColorTarget, 3), _bumpedTargetScale);
+                    bumperOverlay.AddGeometry(new Curve(p, new Pen(Color.LightCoral, 4)));
+                    bumperOverlay.AddGeometry(new Curve(allPointArraysHits[i], new Pen(Color.HotPink, 4)));
                     break;
                 }
                 else
@@ -438,7 +441,6 @@ namespace ShellShockProjectileMotion
 
         private async void SetBumperButton_Click(object sender, EventArgs e)
         {
-
             BumperMousePos1 = default;
             BumperMousePos2 = default;
             await bumperOverlay.ClearGraphics();
@@ -465,21 +467,26 @@ namespace ShellShockProjectileMotion
                     if (BumperMousePos2 == default)
                     {
                         bumperOverlay.Refresh();
-                        bumperGraphics.DrawCircleAtPositions(BumperMousePos1, new Pen(Color.MediumPurple, 3), 10);
-                        bumperGraphics.DrawLineAtPoint(BumperMousePos1, MousePosition, new Pen(Color.Pink, 2));
+                        bumperOverlay.ClearGeometryGroups(OverlayForm.Geom.Circle);
+                        bumperOverlay.ClearGeometryGroups(OverlayForm.Geom.Line);
+                        bumperOverlay.AddGeometry(new Line(BumperMousePos1, MousePosition, new Pen(Color.HotPink, 6)));
+                        bumperOverlay.AddGeometry(new Circle(BumperMousePos1, new Pen(Color.MediumPurple, 3), 10));
                     }
                     else
                     {
                         break;
                     }
                 }
+                bumperOverlay.AddGeometry(new Circle(BumperMousePos2, new Pen(Color.MediumPurple, 3), 10));
                 int checksPerBumper = 5;
-                for (float i = 0; i < 100; i += 100 / checksPerBumper)
+                // Offset means the initial startinpoint on the bumper. 
+                int offsetOnBumper = 10; 
+                for (float i = 0; i < 100 - offsetOnBumper; i += 100 / checksPerBumper)
                 {
-                    float lerpValue = i / 100;
+                    float lerpValue = ((i + offsetOnBumper) / 100);
                     int lerpedBumperX = (int)((BumperMousePos1.X * (1.0 - lerpValue)) + (BumperMousePos2.X * lerpValue));
                     int lerpedBumperY = (int)((BumperMousePos1.Y * (1.0 - lerpValue)) + (BumperMousePos2.Y * lerpValue));
-                    Debug.WriteLine(String.Format("Attempt bumper at {0}. x is {1} y is {2}", lerpValue, lerpedBumperX, lerpedBumperY));
+                    //Debug.WriteLine(String.Format("Attempt bumper at {0}. x is {1} y is {2}", lerpValue, lerpedBumperX, lerpedBumperY));
                     if (CalculateBumper(new Point(lerpedBumperX, lerpedBumperY), BumperMousePos2))
                     {
                         break;
@@ -582,5 +589,42 @@ namespace ShellShockProjectileMotion
             pt.Graphics.DrawArc(new Pen(Color.DeepPink, 5), rect, 0, 360);
         }
 
+    }
+
+    public class Line
+    {
+        public Point P1;
+        public Point P2;
+        public Pen Pen;
+        public Line(Point point1, Point point2, Pen pen)
+        {
+            P1 = point1;
+            P2 = point2;
+            Pen = pen;
+        }
+    }
+
+    public class Curve
+    {
+        public Point[] CurvePoints;
+        public Pen Pen;
+        public Curve(Point[] curvePoints, Pen pen)
+        {
+            CurvePoints = curvePoints;
+            Pen = pen;
+        }
+    }
+
+    public class Circle
+    {
+        public Point P1;
+        public Pen Pen;
+        public int Scale;
+        public Circle(Point origin, Pen pen, int scale)
+        {
+            P1 = origin;
+            Pen = pen;
+            Scale = scale;
+        }
     }
 }
