@@ -22,10 +22,7 @@ namespace ShellShockProjectileMotion
         private bool _keepOpen = Settings.Default.KeepOpen;
         private bool _showTracer = Settings.Default.ShowTracer;
         private bool _showLinearTracer = Settings.Default.ShowLinearTracer;
-        private Point TargetMousePos1 = default;
-        private Point TargetMousePos2 = default;
-        private Point BumperMousePos1 = default;
-        private Point BumperMousePos2 = default;
+        private Point TargetMousePos1, TargetMousePos2, BumperMousePos1,  BumperMousePos2 = default;
         private const int PointArrayLenght = 25;
         private bool _anyButtonpressed = false;
         private bool _bumperMode = false;
