@@ -26,3 +26,5 @@ Use currently up to 1 bumper:
 _Notes_
 * Cannot calculate wind. Intended for use in single player games only. 
 * Bumper arc may varies from the ingame one, but the projectile should land pretty close nonetheless. 
+
+TODO: Clean up. 
